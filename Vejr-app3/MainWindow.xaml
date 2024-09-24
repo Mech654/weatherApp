@@ -77,13 +77,17 @@
     </Window.Resources>
 
     <Grid>
-        <TextBox x:Name="SearchBox"
-                 Style="{StaticResource RoundedTextBoxStyle}"
-                 Width="300"
-                 Height="50"
-                 Margin="0,50,0,0"
-                 VerticalAlignment="Top"
-                 HorizontalAlignment="Center"/>
+        <ComboBox x:Name="SearchBox"
+          SelectionChanged="SelectCity"
+          Width="300"
+          Height="50"
+          Margin="0,50,0,0"
+          VerticalAlignment="Top"
+          HorizontalAlignment="Center"
+          IsEditable="True" 
+          IsTextSearchEnabled="True"
+          TextSearch.TextPath="Text">
+        </ComboBox>
 
         <Button Style="{StaticResource RoundedButtonStyle}"
                 Content="Search"

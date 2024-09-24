@@ -12,6 +12,8 @@ using System.Windows.Shapes;
 using System.Security.Cryptography.X509Certificates;
 using System.Data.SqlTypes;
 using Microsoft.Win32;
+using System.Windows.Markup;
+using System.Data.OleDb;
 
 namespace Vejr_app3
 {
@@ -46,8 +48,40 @@ namespace Vejr_app3
 
             _mediaControl = new MediaControl(videocool);
             settingsforvideo();
+            SQlite.InitializeDatabase();
+            SQlite.getData(); // Fetch data from the database
+            putDataInCombobox();
+            
         }
 
+        
+
+        public void SelectCity(object sender, SelectionChangedEventArgs e)
+        {
+            if (SearchBox.SelectedItem != null)
+            {
+                var selectedCity = SearchBox.SelectedItem.ToString();
+                // Here you can set the ComboBox's text to the selected city, or perform any other logic
+                SearchBox.Text = selectedCity;
+                MessageBox.Show($"You selected: {selectedCity}");
+                dosomething(selectedCity);
+               
+            }
+        }
+        public void putDataInCombobox()
+        {
+            
+            if (firsttime == true)
+            {
+                foreach (string item in SQlite.data)
+                {
+
+                    SearchBox.Items.Add(item);
+
+                }
+                firsttime = false;  
+            }
+        }
         private void settingsforvideo()
         {
             _mediaControl.SetWidth(1000);
@@ -55,10 +89,14 @@ namespace Vejr_app3
             _mediaControl.Raining();
         }
 
+
+        public bool firsttime = true;
         private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
 
             string searchText = SearchBox.Text;
+            
+
 
             dosomething(searchText);
 
@@ -66,6 +104,7 @@ namespace Vejr_app3
 
         public async void dosomething(string searchText)
         {
+           
             // Instantiate the Weather object with the desired city
             API weather = new API(searchText);
 
@@ -75,10 +114,7 @@ namespace Vejr_app3
             if (weather.Valid == true && searchText != "")
             {
                 Citys.Add(searchText);
-
-                // Determine the weather condition
-                string weatherCondition = weather.WeatherType; // Assuming 'Condition' returns values like "Rain", "Snow", etc.
-                string WB = weather.WeatherDescription;
+                string weatherCondition = weather.WeatherType; 
 
                 
 
@@ -90,15 +126,15 @@ namespace Vejr_app3
                     cityText.Text = searchText;
                     citytemp.Text = $"{weather.Temp}°C";
 
-                    // Set the image source based on the weather condition
+                    
                     if (imageSources.ContainsKey(weatherCondition))
                     {
                         cityImage.Source = imageSources[weatherCondition];
                     }
                     else
                     {
-                        // Optionally, handle cases where the condition isn't in the dictionary
-                        cityImage.Source = null; // Or set a default image
+                        
+                        cityImage.Source = null; 
                     }
 
                     widgetDict["Widget1"] = true;
@@ -191,7 +227,11 @@ namespace Vejr_app3
                 }
                 ChangeVideo(weatherCondition);
 
-                SearchBox.Text = "";
+                //SearchBox.Text = "";
+                SearchBox.Items.Insert(0, searchText);
+                SQlite.InsertSearchHistory(searchText);
+
+
             }
         }
 
