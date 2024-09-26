@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Vejr_app3"
         mc:Ignorable="d"
-        WindowState="Maximized"
-        WindowStyle="None"
+        WindowState="Normal"
+        WindowStyle="SingleBorderWindow"
         BorderBrush="Transparent">
 
     <Window.Background>
@@ -122,7 +122,7 @@
                 Padding="10"
                 Click="Save_all"/>
 
-  
+
         <Border BorderBrush="#FF6200EE" BorderThickness="3" CornerRadius="10" Padding="5" Margin="10">
             <MediaElement
                 Opacity="0.95"

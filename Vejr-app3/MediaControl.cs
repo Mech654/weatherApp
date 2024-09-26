@@ -9,16 +9,12 @@ namespace vejr_app3
 {
     public class MediaControl
     {
-        public MediaElement _mediaElement;
+        private MediaElement _mediaElement;
 
         public MediaControl(MediaElement mediaElement)
         {
             _mediaElement = mediaElement;
-
-            // Subscribe to the MediaEnded event to enable looping
-            _mediaElement.MediaEnded += MediaElement_MediaEnded;
         }
-
         public void SetWidth(double width)
         {
             _mediaElement.Width = width;
@@ -30,35 +26,23 @@ namespace vejr_app3
         }
 
 
-
-        private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
-        {
-            // Restart the media playback
-            _mediaElement.Position = TimeSpan.Zero;
-            _mediaElement.Play();
-        }
-
         public void Raining()
         {
-
+            // Construct the path to the media file
             string sourceOG = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Resources2\Rain.mp4");
             sourceOG = Path.GetFullPath(sourceOG);
-            //string source1 = @"c:\users\drahm\onedrive\dokumenter\c#\h1_csharp_opgaver\vejr-app3\vejr-app3\resources2\rain.mp4";
-            //string source2 = @"C:\Users\ahme1636\OneDrive\Dokumenter\C#\H1_CSHARP_OPGAVER\Vejr-app3\Vejr-app3\Resources2\Rain.mp4";
-
 
             try
             {
+                // Check if the file exists
                 if (File.Exists(sourceOG))
                 {
-                    Console.WriteLine("WOLLA found");
-                    _mediaElement.Source = new Uri(sourceOG);
-                    Console.WriteLine("WOLLA found and set.");
-
+                    // Set the media source with UriKind.RelativeOrAbsolute
+                    _mediaElement.Source = new Uri(sourceOG, UriKind.RelativeOrAbsolute);
                 }
                 else
                 {
-                    Console.WriteLine("Neither sourceOG, source1, nor source2 exists.");
+                    Console.WriteLine("File not found.");
                 }
             }
             catch (Exception ex)
@@ -68,22 +52,21 @@ namespace vejr_app3
             _mediaElement.Play();
         }
 
+        // Repeat similar changes for Sun(), Snow(), and Thunder() methods
         public void Sun()
         {
-            string sourceOG = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Resources2\Sunny.mp4");
+            string sourceOG = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Resources2\Sun.mp4");
             sourceOG = Path.GetFullPath(sourceOG);
+
             try
             {
                 if (File.Exists(sourceOG))
                 {
-                    Console.WriteLine("WOLLA found");
-                    _mediaElement.Source = new Uri(sourceOG);
-                    Console.WriteLine("WOLLA found and set.");
-
+                    _mediaElement.Source = new Uri(sourceOG, UriKind.RelativeOrAbsolute);
                 }
                 else
                 {
-                    Console.WriteLine("Neither sourceOG, source1, nor source2 exists.");
+                    Console.WriteLine("File not found.");
                 }
             }
             catch (Exception ex)
@@ -91,24 +74,22 @@ namespace vejr_app3
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
             _mediaElement.Play();
-
         }
+
         public void Snow()
         {
             string sourceOG = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Resources2\Snow.mp4");
             sourceOG = Path.GetFullPath(sourceOG);
+
             try
             {
                 if (File.Exists(sourceOG))
                 {
-                    Console.WriteLine("WOLLA found");
-                    _mediaElement.Source = new Uri(sourceOG);
-                    Console.WriteLine("WOLLA found and set.");
-
+                    _mediaElement.Source = new Uri(sourceOG, UriKind.RelativeOrAbsolute);
                 }
                 else
                 {
-                    Console.WriteLine("Neither sourceOG, source1, nor source2 exists.");
+                    Console.WriteLine("File not found.");
                 }
             }
             catch (Exception ex)
@@ -116,7 +97,29 @@ namespace vejr_app3
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
             _mediaElement.Play();
+        }
 
+        public void Thunder()
+        {
+            string sourceOG = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Resources2\Thunder.mp4");
+            sourceOG = Path.GetFullPath(sourceOG);
+
+            try
+            {
+                if (File.Exists(sourceOG))
+                {
+                    _mediaElement.Source = new Uri(sourceOG, UriKind.RelativeOrAbsolute);
+                }
+                else
+                {
+                    Console.WriteLine("File not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred: " + ex.Message);
+            }
+            _mediaElement.Play();
         }
     }
 }

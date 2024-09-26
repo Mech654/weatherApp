@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.IO;
 
 namespace Vejr_app3
 {
     public static class SQlite
     {
-        private static string connectionString = @"Data Source=C:\Users\ahme1636\OneDrive\Dokumenter\C#\H1_CSHARP_OPGAVER\Vejr-app3\Vejr-app3\Resources2\SEARCH_HISTORY.db;Version=3;";
+        private static string connectionString = @"Data Source=SEARCH_HISTORY.db;Version=3;";
+      
 
         public static void InitializeDatabase()
         {
