@@ -8,7 +8,7 @@ using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using vejr_app3;
 
-namespace Vejr_app3  // 1.0
+namespace Vejr_app3  // 3.3
 {
     public partial class MainWindow : Window
     {
