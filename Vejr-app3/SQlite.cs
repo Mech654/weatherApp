@@ -7,6 +7,17 @@ namespace Vejr_app3
 {
     public static class SQlite
     {
+        public static void RefreshFile()
+        {
+            string dbFilePath = "SEARCH_HISTORY.db";
+            connectionString = @"Data Source=SEARCH_HISTORY.db;Version=3;";
+
+            // Check if the .db file exists, if not, initialize the database
+            if (!File.Exists(dbFilePath))
+            {
+                InitializeDatabase();
+            }
+        }
         private static string connectionString = @"Data Source=SEARCH_HISTORY.db;Version=3;";
       
 

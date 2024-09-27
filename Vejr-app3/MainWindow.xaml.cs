@@ -282,5 +282,25 @@ namespace Vejr_app3  // 3.3
                 Console.WriteLine("File not found.");
             }
         }
+
+        //A method for deleting the whole .db file
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            string dbFilePath = "SEARCH_HISTORY.db"; // Replace with the actual path to your .db file
+
+            if (File.Exists(dbFilePath))
+            {
+                File.Delete(dbFilePath);
+                MessageBox.Show(".db file deleted successfully.");
+            }
+            else
+            {
+                MessageBox.Show(".db file not found.");
+            }
+
+            // Reset the ComboBox by removing all items
+            SearchBox.Items.Clear();
+            SQlite.RefreshFile();
+        }
     }
 }
